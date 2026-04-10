@@ -1,0 +1,10 @@
+FROM alpine:3.21
+
+LABEL org.opencontainers.image.source="https://github.com/codergrounds/lancache-unifi"
+LABEL org.opencontainers.image.description="Lancache UniFi DNS Sync"
+
+RUN apk --no-cache add ca-certificates tzdata
+
+COPY lancache-unifi /usr/local/bin/lancache-unifi
+
+ENTRYPOINT ["lancache-unifi"]

@@ -1,0 +1,11 @@
+# Binary
+dist/
+
+# Environment file
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*~
