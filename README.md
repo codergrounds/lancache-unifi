@@ -95,6 +95,14 @@ docker run -d \
 | `DRY_RUN` | ❌ | `false` | Log actions without making changes |
 | `CRON_SCHEDULE` | ❌ | random daily | Standard 5-field cron expression |
 
+### Obtaining a UniFi API Key
+
+1. Log into your **UniFi OS Console**
+2. Open **Settings**
+3. Navigate to **Control Plane** -> **Integrations**
+4. Fill out "**API Key Name** and click **Create API Key**.
+5. Copy the generated API key and paste it into the `UNIFI_API_KEY` environment variable.
+
 ### Filtering Logic
 
 - If `SERVICE_ALLOWLIST` is set, **only** those groups are synced
