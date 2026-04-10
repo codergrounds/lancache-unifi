@@ -14,7 +14,7 @@ Automatically syncs [lancache cache-domains](https://github.com/uklans/cache-dom
 
 ## Running the Application
 
-### 1. Using Precompiled Binaries
+### Option A: Using Precompiled Binaries
 
 You can download the latest precompiled static binaries for Linux, macOS, and Windows directly from the [GitHub Releases page](https://github.com/codergrounds/lancache-unifi/releases). Simply download, extract, and execute:
 
@@ -26,7 +26,7 @@ cp .env.example .env
 ./lancache-unifi
 ```
 
-### 2. Using Prebuilt Docker Containers
+### Option B: Using Prebuilt Docker Containers
 
 Pre-assembled multi-architecture Docker containers are distributed instantly on tag releases via the GitHub Container Registry (GHCR). 
 
@@ -43,23 +43,42 @@ docker run -d \
 
 ## Building from Source
 
-If you want to review the code, build the application manually, or deploy test branches locally, all core commands are mapped directly to the `Makefile`:
 
+### Option A: Building Natively (Go)
+
+If you have Go installed on your machine, you can launch or compile the application natively:
+
+First, clone the repository and configure your local environment variables:
 ```bash
-# Clone the repo and configure your environment
 git clone https://github.com/codergrounds/lancache-unifi.git
 cd lancache-unifi
 cp .env.example .env
 
-# 1. Run the code directly via Go (reads .env automatically)
+# Run the code instantly without compiling (it will securely read .env locally)
 make run
 
-# 2. Compile the binary locally (outputs to dist/lancache-unifi)
+# Or explicitly compile the production standalone binary (outputs to dist/)
 make build
 ./dist/lancache-unifi
+```
 
-# 3. Build the Docker container locally
+### Option B: Building via Docker
+
+If you don't have Go installed, or prefer deploying via containers, Docker isolates all dependencies perfectly using a multi-stage builder. *(Note: Our Makefile logic dynamically tags the container with your current active Git branch name!)*
+
+```bash
 make docker
+```
+
+```bash
+docker run -d \
+  --name lancache-unifi \
+  --restart unless-stopped \
+  -e UNIFI_HOST=https://192.168.1.1 \
+  -e UNIFI_API_KEY=your-api-key \
+  -e LANCACHE_IP=192.168.1.100 \
+  -e SERVICE_ALLOWLIST=steam,epicgames,blizzard \
+  lancache-unifi:<branch-name>
 ```
 
 ## Configuration
