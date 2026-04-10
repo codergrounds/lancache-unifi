@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 )
 
@@ -71,6 +72,10 @@ func (c *Client) doRequest(req *http.Request) ([]byte, error) {
 	bodyBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, fmt.Errorf("reading response body: %w", err)
+	}
+
+	if resp.StatusCode == http.StatusUnauthorized {
+		log.Fatalf("[FATAL] UniFi API returned 401 Unauthorized. Please verify your UNIFI_API_KEY is correct.")
 	}
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
