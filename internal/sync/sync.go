@@ -79,10 +79,24 @@ func (s *Syncer) Run() error {
 	}
 
 	// Build a set of ALL cache domains known to the GitHub repo.
-	// We use this for safe stateless cleanup later.
+	// We use this for safe stateless cleanup later, and groups for validation.
 	allGithubDomains := make(map[string]bool, len(allEntries))
+	allGithubGroups := make(map[string]bool)
 	for _, e := range allEntries {
 		allGithubDomains[e.Domain] = true
+		allGithubGroups[e.Group] = true
+	}
+
+	// Validate that the provided services exist upstream
+	for _, svc := range s.serviceAllowlist {
+		if !allGithubGroups[svc] {
+			log.Fatalf("[FATAL] invalid service specified in SERVICE_ALLOWLIST: %q", svc)
+		}
+	}
+	for _, svc := range s.serviceBlocklist {
+		if !allGithubGroups[svc] {
+			log.Fatalf("[FATAL] invalid service specified in SERVICE_BLOCKLIST: %q", svc)
+		}
 	}
 
 	// 2. Apply allowlist/blocklist filters
