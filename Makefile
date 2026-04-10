@@ -1,7 +1,8 @@
 .PHONY: build test clean run docker
 
 BINARY_NAME=lancache-unifi
-DOCKER_IMAGE=lancache-unifi:latest
+GIT_BRANCH := $(shell git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "latest")
+DOCKER_IMAGE=lancache-unifi:$(GIT_BRANCH)
 
 build:
 	go build -ldflags="-s -w" -o dist/$(BINARY_NAME) .
