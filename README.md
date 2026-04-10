@@ -82,9 +82,7 @@ make docker
 - If only `SERVICE_BLOCKLIST` is set, those groups are **excluded**
 - If neither is set, **all** groups are synced
 
-### Available Domain Groups
-
-`arenanet`, `blizzard`, `bsg`, `cityofheroes`, `cod`, `daybreak`, `epicgames`, `frontier`, `neverwinter`, `nexusmods`, `nintendo`, `origin`, `pathofexile`, `renegadex`, `riot`, `rockstar`, `sony`, `square`, `steam`, `teso`, `test`, `uplay`, `warframe`, `wargaming`, `wsus`, `xboxlive`
+Available services can be found [here](https://github.com/uklans/cache-domains/blob/master/cache_domains.json).
 
 ## How It Works
 
